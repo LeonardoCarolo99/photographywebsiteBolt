@@ -22,14 +22,17 @@ type Route =
   | { name: 'admin-album'; id: string };
 
 function parseRoute(): Route {
-  const hash = window.location.hash.replace(/^#\/?/, '');
+  const rawHash = window.location.hash.replace(/^#\/?/, '');
+  // Normalize by stripping any trailing slash to prevent mismatch errors
+  const hash = rawHash.endsWith('/') && rawHash !== '' ? rawHash.slice(0, -1) : rawHash;
+
   if (hash.startsWith('album/')) {
     const id = hash.slice('album/'.length);
     if (id) return { name: 'album', id };
   }
   if (hash === 'about') return { name: 'about' };
   if (hash === 'contact') return { name: 'contact' };
-  if (hash === 'admin' || hash === 'admin/') return { name: 'admin-dashboard' };
+  if (hash === 'admin') return { name: 'admin-dashboard' };
   if (hash.startsWith('admin/album/')) {
     const id = hash.slice('admin/album/'.length);
     if (id) return { name: 'admin-album', id };
