@@ -1,5 +1,5 @@
 import type { Album } from '@/types';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ImageIcon } from 'lucide-react';
 
 interface AlbumCardProps {
   album: Album;
@@ -14,12 +14,18 @@ export function AlbumCard({ album, index, onClick }: AlbumCardProps) {
       className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-900 text-left"
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      <img
-        src={album.cover_image_url}
-        alt={album.title}
-        loading="lazy"
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      />
+      {album.cover_image_url ? (
+        <img
+          src={album.cover_image_url}
+          alt={album.title}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center">
+          <ImageIcon className="h-12 w-12 text-gray-700" strokeWidth={1} />
+        </div>
+      )}
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
       {/* Gold border on hover */}

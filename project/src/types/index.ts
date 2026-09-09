@@ -2,7 +2,7 @@ export interface Album {
   id: string;
   title: string;
   description: string | null;
-  cover_image_url: string;
+  cover_image_url: string | null;
   sort_order: number;
   created_at: string;
 }
